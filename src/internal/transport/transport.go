@@ -32,14 +32,12 @@ func (usecase userTransport) CreateUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, "user")
 }
 
-func (usecase userTransport) GetUsers(c echo.Context) error {
-	req := entity.User{}
-	err := c.Bind(&req)
+func (usecase userTransport) GetUsers(c echo.Context) (err error) {
+	users, err := usecase.usecase.GetUsers()
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, "The information entered is incomplete. Please enter again.")
+		return
 	}
-
-	return c.JSON(http.StatusCreated, "user")
+	return c.JSON(http.StatusCreated, users)
 }
 
 func (usecase userTransport) GetUser(c echo.Context) error {
