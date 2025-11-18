@@ -1,9 +1,12 @@
 package usecase
 
-import "tcc-test/internal/entity"
+import (
+	"context"
+	"tcc-test/internal/entity"
+)
 
 type UserUsecaseInterface interface {
-	CreateUser(user entity.User, err error)
-	GetUser() (user entity.User, err error)
-	GetUsers() (user []entity.User, err error)
+	CreateUser(ctx context.Context, user entity.User) (err error)
+	GetUsers(ctx context.Context,) (user []entity.User, err error)
+	GetUser(ctx context.Context, id string) (user entity.User, err error)
 }

@@ -1,9 +1,9 @@
 package usecase
 
 import (
+	"context"
 	"tcc-test/internal/entity"
 	"tcc-test/internal/repository"
-	"time"
 )
 
 type userUsecase struct {
@@ -18,23 +18,36 @@ func NewUserUsecase(
 	}
 }
 
-func (u *userUsecase) CreateUser(user entity.User, err error) {
-	panic("unimplemented")
+func (u *userUsecase) CreateUser(ctx context.Context, user entity.User) (err error) {
+	err = u.userRepository.Create(
+		ctx,
+		user,
+	)
+	if err != nil {
+		return
+	}
+
+	return
 }
 
-func (u *userUsecase) GetUser() (user entity.User, err error) {
-	panic("unimplemented")
+func (u *userUsecase) GetUser(ctx context.Context, id string) (user entity.User, err error) {
+	user, err = u.userRepository.FindOne(
+		ctx,
+		id,
+	)
+	if err != nil {
+		return
+	}
+
+	return
 }
 
-func (u *userUsecase) GetUsers() (users []entity.User, err error) {
-	users = []entity.User{
-		{
-			ID:        "1",
-			Name:      "pim",
-			Address:   "test",
-			BirthDate: time.Time{},
-			Age:       25,
-		},
+func (u *userUsecase) GetUsers(ctx context.Context) (users []entity.User, err error) {
+	users, err = u.userRepository.FindMany(
+		ctx,
+	)
+	if err != nil {
+		return
 	}
 
 	return users, nil

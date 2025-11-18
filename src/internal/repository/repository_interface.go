@@ -6,17 +6,17 @@ import (
 )
 
 type UserRepositoryInterface interface {
-	create(
+	Create(
 		ctx context.Context,
 		user entity.User,
 	) (err error)
 
-	findOne(
-		ctx context.Context,
-	) (users []entity.User, err error)
-
-	findMany(
+	FindOne(
 		ctx context.Context,
 		id string,
 	) (user entity.User, err error)
+
+	FindMany(
+		ctx context.Context,
+	) (user []entity.User, err error)
 }
