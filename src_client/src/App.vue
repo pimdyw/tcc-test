@@ -17,8 +17,6 @@ const userFormData = ref({
   address: ""
 });
 
-
-// Fetch data from API
 const fetchUsers = async () => {
   try {
     const response = await axios.get('http://localhost:8080/users')
